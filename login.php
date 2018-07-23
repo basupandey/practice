@@ -7,21 +7,20 @@ if(isset($_POST['submit'])){
 	//$email=$_POST['email'];
 	$password=$_POST['password'];
 
-	$sql="SELECT * FROM users where uname='$name'   and upass='$password'and ustatus=1";
+	$sql="SELECT * FROM users where uname='$name' and upass='$password'and ustatus=1";
 	include ('connection.php');
 	
 	$query=mysqli_query($conn, $sql);
 	
 	$count=mysqli_num_rows($query);
+if($count==1)
+	{	
+ 		$_SESSION['name']=$name;
+ 		header('location:dashboard.php');
+		echo "Login Success";	}
+	else
+	{echo "Something Wrong! Please correct it";	}
 
-	if($count==1){
-	$_SESSION["name"]=$name;
-	header('location: dashboard.php');
-	echo "login sucess";
-	}
-	else{
-		echo "something went wrong";
-	}
 	mysqli_close($conn);
 }
 
